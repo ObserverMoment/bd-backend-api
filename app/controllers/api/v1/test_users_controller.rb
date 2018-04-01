@@ -13,18 +13,17 @@ module Api
       end
 
       def create
+        params = check_test_user_params(params)
         begin
-          user = User.create(check_test_user_params)
+          user = TestUser.create(params)
+          # Uncomment if not working
+          # user = TestUser.create(name: params[:name], email: params[:email], data: params[:data])
           render json: { status: 'SUCCESS', message: 'New user added to database', data: user }, status: :ok
+        rescue ActiveRecord::RecordNotUnique => e
+          render json: { status: 'FAILED', message: 'A user already exists for these details', raw_error: e }, status: :unprocessable_entity
         rescue ActiveRecord::RecordNotSaved => e
-          render json: { status: 'FAILED', message: 'User was not saved, sorry', raw_error: e }, status: :internal_server_error
+          render json: { status: 'FAILED', message: 'User was not saved, sorry', raw_error: e }, status: :unprocessable_entity
         end
-      end
-
-      def new
-      end
-
-      def edit
       end
 
       def show
@@ -45,7 +44,7 @@ module Api
       # These methods are private and are for intenal class use only
       private
       # This will parse the params object and check for required and permitted data. Then return a checked object.
-      def check_test_user_params
+      def check_test_user_params(params)
         params.require(:name, :email).permit(:name, :email, :data)
       end
     end

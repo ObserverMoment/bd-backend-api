@@ -9,3 +9,8 @@
 TestUser.create(name: "Barry", email: "barry@manilow.com", data: { job: "singer", age: 52 })
 TestUser.create(name: "Gary", email: "gary@lineker.com", data: { job: "footballer", age: 45 })
 TestUser.create(name: "Larry", email: "larry@david.com", data: { job: "comedian", age: 48 })
+
+TestIdea.create(title:"These are good ideas", body:"This will be 140 characters part 1", author:"Gary")
+TestIdea.create(title:"Fourth idea is back", body:"This will be 140 characters part 2", author:"Barry")
+TestIdea.create(title:"Get a job", body:"This will be 140 characters part 3", author:"Larry")
+TestIdea.create(title:"Work it out", body:"This will be 140 characters part 4", author:"Rich")

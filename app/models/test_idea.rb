@@ -1,0 +1,2 @@
+class TestIdea < ApplicationRecord
+end
